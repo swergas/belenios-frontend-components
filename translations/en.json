@@ -1,0 +1,11 @@
+{
+  "Welcome to React": "Welcome to React and react-i18next",
+  "Like": "Like",
+  "You liked this": "You liked this.",
+  "selectBetweenXAndYAnswers": "$t(selectBetweenX, {\"count\": {{min}} }) and {{count}} answer.",
+  "selectBetweenXAndYAnswers_plural": "$t(selectBetweenX, {\"count\": {{min}} }) and {{count}} answers.",
+  "selectBetweenX": "Please select between {{count}}",
+  "selectBetweenX_plural": "Please select between {{count}}",
+  "selectXAnswers": "Please select {{count}} answer.",
+  "selectXAnswers_plural": "Please select {{count}} answers."
+}

@@ -1,0 +1,42 @@
+.page-header {
+  border-radius: 10px 10px 0 0;
+  background: #363636;
+  color: white;
+  display: flex;
+  padding: 20px 2px;
+  margin-bottom: 10px;
+}
+
+.page-header__logo {
+  flex: 0 0 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-header__logo > img {
+  margin: 5px;
+  max-height: 70px;
+  min-width: 42px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.page-header__titles {
+  text-align: center;
+  flex: 1 0 auto;
+}
+
+.page-header__titles h1 {
+  font-size: 30px;
+}
+.page-header__titles h1, .page-header__titles p {
+  line-height: 1.4em;
+  font-family: 'Ubuntu', arial, serif;
+  font-weight: lighter;
+  margin: 0;
+}
+
+.page-header__right {
+  flex: 0 0 20%;
+}

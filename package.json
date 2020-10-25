@@ -1,0 +1,50 @@
+{
+  "name": "belenios-frontend-components",
+  "version": "0.0.1",
+  "description": "UI components for Belenios frontend",
+  "main": "index.html",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "scripts": {
+    "server": "python -m SimpleHTTPServer 8000",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006 -s ./",
+    "build-storybook": "build-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:swergas/belenios-frontend-components.git"
+  },
+  "keywords": [
+    "vote",
+    "voting",
+    "election",
+    "verifiable",
+    "ballot",
+    "democracy",
+    "belenios"
+  ],
+  "author": "Quentin Grimaud",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "i18next": "^19.7.0",
+    "i18next-http-backend": "^1.0.21",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.7.3"
+  },
+  "//": [
+    "Packages in devDependencies have been added by Storybook, and are needed only if you want to build the storybook which displays components listed in this repository."
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/react": "^6.0.26",
+    "babel-loader": "^8.1.0",
+    "react-is": "^16.13.1"
+  }
+}
