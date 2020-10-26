@@ -1,6 +1,6 @@
-import ClassicVoteCandidatesList from "./ClassicVoteCandidatesList.mjs";
+import { TranslatableClassicVoteCandidatesList } from "./ClassicVoteCandidatesList.mjs"; // FIXME: We have to import TranslatableClassicVoteCandidatesList instead of ClassicVoteCandidatesList, because otherwise Storybook throws a hook error.
 
-function TranslatableQuestionWithVotableAnswers({ minimum_answers, maximum_answers, question, answers, identifierPrefix, visible, t }){
+function TranslatableQuestionWithVotableAnswers({ minimum_answers, maximum_answers, question, answers, blankVoteAllowed, identifierPrefix, visible, t }){
   let description;
   let question_type = "checkbox";
   if ( minimum_answers === 1 && maximum_answers === 1){
@@ -13,11 +13,13 @@ function TranslatableQuestionWithVotableAnswers({ minimum_answers, maximum_answe
     description = t("selectBetweenXAndYAnswers", {min: minimum_answers, count: maximum_answers});
   }
   const rendered_answers = e(
-    ClassicVoteCandidatesList,
+    TranslatableClassicVoteCandidatesList,
     {
       type: question_type,
       identifierPrefix: identifierPrefix,
-      candidates: answers
+      candidates: answers,
+      blankVoteAllowed: blankVoteAllowed,
+      t: t
     }
   );
   const containerClassNames = visible ? "question-with-votable-answers" : "question-with-votable-answers question-with-votable-answers--hidden";
@@ -52,6 +54,7 @@ TranslatableQuestionWithVotableAnswers.defaultProps = {
   ],
   "minimum_answers": 1,
   "maximum_answers": 2,
+  "blankVoteAllowed": false,
   "question": "Question 1?",
   "identifierPrefix": "question_1_",
   "visible": true

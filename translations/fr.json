@@ -7,5 +7,6 @@
   "selectBetweenX": "Veuillez sélectionner entre {{count}}",
   "selectBetweenX_plural": "Veuillez sélectionner entre {{count}}",
   "selectXAnswers": "Veuillez sélectionner {{count}} réponse.",
-  "selectXAnswers_plural": "Veuillez sélectionner {{count}} réponses."
+  "selectXAnswers_plural": "Veuillez sélectionner {{count}} réponses.",
+  "Blank vote": "Vote blanc"
 }

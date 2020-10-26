@@ -207,6 +207,7 @@ class AllQuestionsWithPagination extends React.Component {
           minimum_answers: question.min,
           maximum_answers: question.max,
           question: question.question,
+          blankVoteAllowed: question.blank,
           identifierPrefix: `question_${question_index}_`,
           visible: this.state.current_question_index === question_index ? true : false
         }

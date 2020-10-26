@@ -4,17 +4,18 @@ import CandidateWithRadio from "./CandidateWithRadio.mjs";
 /*
 Displays a list of candidates represented using instances of component CandidateWithCheckbox or CandidateWithRadio, depending on value of "type" prop.
 */
-class ClassicVoteCandidatesList extends React.Component {
+class TranslatableClassicVoteCandidatesList extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { type, candidates, identifierPrefix, blankVoteAllowed } = this.props;
+    const { type, candidates, identifierPrefix, blankVoteAllowed, t } = this.props;
     const candidate_constructor = type == "checkbox" ? CandidateWithCheckbox : CandidateWithRadio;
     let finalCandidates = candidates;
     if (blankVoteAllowed === true){
-      finalCandidates = [...candidates, "Blank vote"]; // TODO: i18n. Also, is this the right way to do it?
+      const blankVoteLabel = t("Blank vote");
+      finalCandidates = [...candidates, blankVoteLabel]; // Is this the right way to do it?
     }
     const renderedCandidates = finalCandidates.map((candidate, instanceNumber) => {
       const identifier = `${identifierPrefix}_choice_${instanceNumber}`;
@@ -49,7 +50,7 @@ class ClassicVoteCandidatesList extends React.Component {
   }
 }
 
-ClassicVoteCandidatesList.defaultProps = {
+TranslatableClassicVoteCandidatesList.defaultProps = {
   type: "checkbox",
   identifierPrefix: "question_1",
   candidates: [
@@ -60,5 +61,7 @@ ClassicVoteCandidatesList.defaultProps = {
   blankVoteAllowed: false
 };
 
-export { ClassicVoteCandidatesList };
+const ClassicVoteCandidatesList = ReactI18next.withTranslation()(TranslatableClassicVoteCandidatesList);
+
+export { ClassicVoteCandidatesList, TranslatableClassicVoteCandidatesList };
 export default ClassicVoteCandidatesList;
