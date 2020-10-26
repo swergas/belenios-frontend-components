@@ -59,5 +59,5 @@ TranslatableQuestionWithVotableAnswers.defaultProps = {
 
 const QuestionWithVotableAnswers = ReactI18next.withTranslation()(TranslatableQuestionWithVotableAnswers);
 
-export { QuestionWithVotableAnswers };
+export { QuestionWithVotableAnswers, TranslatableQuestionWithVotableAnswers };
 export default QuestionWithVotableAnswers;

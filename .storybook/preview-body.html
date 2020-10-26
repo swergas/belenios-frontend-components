@@ -6,3 +6,12 @@
 <script src="node_modules/i18next-http-backend/i18nextHttpBackend.js"></script>
 
 <script src="shortcuts.js"></script>
+
+<script type="module">
+  import i18n_init from "../i18n_init.mjs";
+  function onI18nInitialized(){
+    console.log("i18n is now initialized!");
+  }
+
+  i18n_init("en", onI18nInitialized);
+</script>
