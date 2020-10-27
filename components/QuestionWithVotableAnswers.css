@@ -1,0 +1,17 @@
+.question-with-votable-answers {
+  margin: 2px;
+}
+
+.question-with-votable-answers--hidden {
+  display: none;
+}
+
+.question-with-votable-answers__question-title {
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
+.question-with-votable-answers__question-description {
+  font-size: 12px;
+  margin: 10px 0;
+}

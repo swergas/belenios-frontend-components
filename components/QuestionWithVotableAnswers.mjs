@@ -31,14 +31,14 @@ function TranslatableQuestionWithVotableAnswers({ minimum_answers, maximum_answe
     e(
       "h3",
       {
-        className: "vote-title"
+        className: "question-with-votable-answers__question-title"
       },
-      question || "Question title"
+      question
     ),
     e(
       "p",
       {
-        className: "vote-description"
+        className: "question-with-votable-answers__question-description"
       },
       description
     ),

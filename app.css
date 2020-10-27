@@ -2,6 +2,7 @@
 @import "components/Breadcrumb.css";
 @import "components/CandidateWithCheckbox.css";
 @import "components/ClassicVoteCandidatesList.css";
+@import "components/QuestionWithVotableAnswers.css";
 
 .page {
   max-width: 800px;
@@ -10,17 +11,10 @@
 
 /* UI Components, with CSS class naming trying to respect BEM (http://getbem.com/naming/) */
 
-.vote-title {
-  font-weight: 400;
-  margin-bottom: 3px;
-}
 
-.vote-description {
-  font-size: 12px;
-}
 
 .classic-vote-candidates-list {
-  margin: 17px auto;
+  margin: 22px auto;
   max-width: 550px;
 }
 
@@ -50,11 +44,6 @@
 .vote-navigation__previous, .vote-navigation__next {
   padding: 15px;
   margin: 1px;
-}
-
-
-.question-with-votable-answers--hidden {
-  display: none;
 }
 
 .nice-button {
