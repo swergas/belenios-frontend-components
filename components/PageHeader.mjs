@@ -1,6 +1,6 @@
 const e = React.createElement;
 
-function PageHeader(props) {
+function TranslatablePageHeader({title, subTitle, t}) {
   return e(
     "div",
     {
@@ -15,7 +15,8 @@ function PageHeader(props) {
         "img",
         {
           src: "./static/logo.png",
-          alt: "Serveur d'élections"
+          alt: t("Election server"),
+          title: t("Election server")
         }
       )
     ),
@@ -29,14 +30,14 @@ function PageHeader(props) {
         {
           id: "election_name",
         },
-        props.title
+        title
       ),
       e(
         "p",
         {
           id: "election_description"
         },
-        props.subTitle
+        subTitle
       )
     ),
     e(
@@ -48,10 +49,13 @@ function PageHeader(props) {
   );
 }
 
-PageHeader.defaultProps = {
+TranslatablePageHeader.defaultProps = {
   title: "Title of election",
-  subTitle: "Subtitle of election"
+  subTitle: "Subtitle of election",
+  logoAlt: "Election server"
 };
 
-export { PageHeader };
+const PageHeader = ReactI18next.withTranslation()(TranslatablePageHeader);
+
+export { PageHeader, TranslatablePageHeader };
 export default PageHeader;
