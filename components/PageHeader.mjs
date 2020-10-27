@@ -28,6 +28,7 @@ function TranslatablePageHeader({title, subTitle, t}) {
       e(
         "h1",
         {
+          className: "page-header__titles__election-name",
           id: "election_name",
         },
         title
@@ -35,6 +36,7 @@ function TranslatablePageHeader({title, subTitle, t}) {
       e(
         "p",
         {
+          className: "page-header__titles__election-description",
           id: "election_description"
         },
         subTitle

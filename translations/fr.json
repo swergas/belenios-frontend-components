@@ -9,5 +9,7 @@
   "selectXAnswers": "Veuillez sélectionner {{count}} réponse.",
   "selectXAnswers_plural": "Veuillez sélectionner {{count}} réponses.",
   "Blank vote": "Vote blanc",
-  "Election server": "Serveur d'élections"
+  "Election server": "Serveur d'élections",
+  "electionUuid": "UUID de l'élection : {{uuid}}",
+  "electionFootprint": "Empreinte de l'élection : {{footprint}}"
 }

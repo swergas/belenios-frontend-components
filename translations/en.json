@@ -9,5 +9,7 @@
   "selectXAnswers": "Please select {{count}} answer.",
   "selectXAnswers_plural": "Please select {{count}} answers.",
   "Blank vote": "Blank vote",
-  "Election server": "Election server"
+  "Election server": "Election server",
+  "electionUuid": "Election UUID: {{uuid}}",
+  "electionFootprint": "Election footprint: {{footprint}}"
 }

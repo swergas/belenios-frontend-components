@@ -2,6 +2,7 @@ import i18n_init from "./i18n_init.mjs";
 import PageHeader from "./components/PageHeader.mjs";
 import Breadcrumb from "./components/Breadcrumb.mjs";
 import QuestionWithVotableAnswers from "./components/QuestionWithVotableAnswers.mjs";
+import PageFooter from "./components/PageFooter.mjs";
 
 function getHashParametersFromURL(){
   const url_hash_parameters = window.location.hash.substr(1);
@@ -20,6 +21,7 @@ function initializeUILanguageFromURLParameter(onI18nInitialized){
 
 function onI18nInitialized(){
   renderBreadcrumb();
+  renderPageFooter();
 
   fetch('./election.json')
     .then(response => response.json())
@@ -261,6 +263,20 @@ function renderBreadcrumb(){
       }
     ),
     breadcrumbContainer
+  );
+}
+
+function renderPageFooter(){
+  const pageFooterContainer = document.querySelector("#page-footer-container");
+  ReactDOM.render(
+    e(
+      PageFooter,
+      {
+        electionUuid: "E7bP7XBxsumU3B",
+        electionFootprint: "cbhXGRgIAtXd0dbzfkGuO2juG5oxm4KgAmyFCW6BDpE"
+      }
+    ),
+    pageFooterContainer
   );
 }
 
