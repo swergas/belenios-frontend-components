@@ -11,5 +11,9 @@
   "Blank vote": "Vote blanc",
   "Election server": "Serveur d'élections",
   "electionUuid": "UUID de l'élection : {{uuid}}",
-  "electionFootprint": "Empreinte de l'élection : {{footprint}}"
+  "electionFootprint": "Empreinte de l'élection : {{footprint}}",
+  "questionXofY": "$t(questionX, {\"count\": {{current_question}} }) sur {{number_of_questions}}",
+  "questionX": "Question {{count}}",
+  "Next": "Suivant",
+  "Previous": "Précédent"
 }

@@ -11,5 +11,9 @@
   "Blank vote": "Blank vote",
   "Election server": "Election server",
   "electionUuid": "Election UUID: {{uuid}}",
-  "electionFootprint": "Election footprint: {{footprint}}"
+  "electionFootprint": "Election footprint: {{footprint}}",
+  "questionXofY": "$t(questionX, {\"count\": {{current_question}} }) of {{number_of_questions}}",
+  "questionX": "Question {{count}}",
+  "Next": "Next",
+  "Previous": "Previous"
 }

@@ -6,13 +6,13 @@
 
 @media screen and (max-width: 640px) {
   .breadcrumb {
-    margin: 0 2px;
+    padding: 4px;
   }
 }
 
 @media screen and (min-width: 640px) {
   .breadcrumb {
-    margin: 0 10px;
+    padding: 10px;
   }
 }
 

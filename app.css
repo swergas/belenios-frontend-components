@@ -4,6 +4,8 @@
 @import "components/ClassicVoteCandidatesList.css";
 @import "components/QuestionWithVotableAnswers.css";
 @import "components/PageFooter.css";
+@import "components/VoteNavigation.css";
+@import "components/NiceButton.css";
 
 body {
   background: #E5E4E2;
@@ -28,75 +30,11 @@ body {
 
 .page-body {
   background: white;
-  padding: 10px 5px;
 }
 
 /* UI Components, with CSS class naming trying to respect BEM (http://getbem.com/naming/) */
 
-
-
 .classic-vote-candidates-list {
   margin: 22px auto;
   max-width: 550px;
-}
-
-.vote-footer {
-  width: 100%;
-  background: #666;
-  margin-top: 30px;
-}
-
-.vote-navigation {
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-  padding: 0 10px;
-  font-size: 14px;
-  max-width: 550px;
-  margin: 0 auto;
-}
-
-.vote-navigation__info {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  padding: 0 5px;
-}
-
-.vote-navigation__previous, .vote-navigation__next {
-  padding: 15px;
-  margin: 1px;
-}
-
-.nice-button {
-  border: 1px solid;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 15px;
-}
-
-.nice-button:hover {
-  cursor: pointer;
-}
-
-.nice-button[disabled]:hover {
-  cursor: initial;
-}
-
-.nice-button[disabled] {
-  opacity: 0.5;
-}
-
-.nice-button--blue {
-  background: #1097e6;
-  color: white;
-  border-color: #a0dcff #5fc4ff #21adff;
-  background-image: linear-gradient(to bottom, #25a5f0, #1097e6 66%, #0f8ad3);
-}
-
-.nice-button--default {
-  background: #9d9d9d;
-  color: white;
-  border-color: #dfdfdf #d0d0d0 #a6a6a6;
-  background-image: linear-gradient(to bottom, #b0b0b0, #888 66%, #828282);
 }

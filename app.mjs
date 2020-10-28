@@ -2,6 +2,7 @@ import i18n_init from "./i18n_init.mjs";
 import PageHeader from "./components/PageHeader.mjs";
 import Breadcrumb from "./components/Breadcrumb.mjs";
 import QuestionWithVotableAnswers from "./components/QuestionWithVotableAnswers.mjs";
+import VoteNavigation from "./components/VoteNavigation.mjs";
 import PageFooter from "./components/PageFooter.mjs";
 
 function getHashParametersFromURL(){
@@ -70,7 +71,7 @@ function addFormSubmitBehaviour(election_data){
   */
 
   // v2: Use Next button click event handler
-  const btnEl = document.querySelector(".vote-navigation__next");
+  const btnEl = document.querySelector(".vote-navigation__next-button-container");
   const onSubmit = (event) => {
     const vote_of_voter_per_question = extractVoterSelectedAnswersFromFields(election_data);
     console.log("vote_of_voter_per_question:", vote_of_voter_per_question);
@@ -105,64 +106,7 @@ function renderElection(election_data){
   );
 }
 
-function VoteNavigation({ question_index, questions_length, onClickPrevious, onClickNext }){
-  const labelPrevious = {
-    __html: "&lt;&nbsp;&nbsp;Précédent" // TODO: i18n
-  };
 
-  const labelNext = {
-    __html: "Suivant&nbsp;&nbsp;&gt;" // TODO: i18n
-  };
-
-  return e(
-    'div',
-    {
-      className: "vote-footer"
-    },
-    e(
-      'div',
-      {
-        className: "vote-navigation"
-      },
-      e(
-        'div',
-        {
-          className: "vote-navigation__info"
-        },
-        `Question ${question_index+1} sur ${questions_length}` // TODO: i18n
-      ),
-      e(
-        'div',
-        {
-          className: "vote-navigation__previous"
-        },
-        e(
-          'button',
-          {
-            className: "nice-button nice-button--default",
-            onClick: question_index == 0 ? null : onClickPrevious,
-            dangerouslySetInnerHTML: labelPrevious,
-            disabled: question_index == 0 ? true : false
-          },
-        )
-      ),
-      e(
-        'div',
-        {
-          className: "vote-navigation__next"
-        },
-        e(
-          'button',
-          {
-            className: "nice-button nice-button--blue",
-            onClick: onClickNext,
-            dangerouslySetInnerHTML: labelNext
-          }
-        )
-      )
-    )
-  );
-}
 
 class AllQuestionsWithPagination extends React.Component {
   constructor(props){
@@ -216,12 +160,15 @@ class AllQuestionsWithPagination extends React.Component {
       )
     }, this);
 
-    const renderedPagination = VoteNavigation({
-      question_index: this.state.current_question_index,
-      questions_length: this.props.election_data.questions.length,
-      onClickPrevious: this.onClickPrevious,
-      onClickNext: this.onClickNext,
-    });
+    const renderedPagination = e(
+      VoteNavigation,
+      {
+        question_index: this.state.current_question_index,
+        questions_length: this.props.election_data.questions.length,
+        onClickPreviousButton: this.onClickPrevious,
+        onClickNextButton: this.onClickNext
+      }
+    );
     return e(
       React.Fragment,
       null,
