@@ -1,6 +1,6 @@
 import i18n_init from "./i18n_init.mjs";
 import PageHeader from "./components/PageHeader.mjs";
-import Breadcrumb from "./components/Breadcrumb.mjs";
+import { VoteBreadcrumb } from "./components/Breadcrumb.mjs";
 import QuestionWithVotableAnswers from "./components/QuestionWithVotableAnswers.mjs";
 import VoteNavigation from "./components/VoteNavigation.mjs";
 import PageFooter from "./components/PageFooter.mjs";
@@ -14,28 +14,137 @@ function getHashParametersFromURL(){
   }, {});
 }
 
-function initializeUILanguageFromURLParameter(onI18nInitialized){
-  const hash_parameters = getHashParametersFromURL();
-  let lang = hash_parameters['lang'];
-  i18n_init(lang, onI18nInitialized);
+const onVoteSubmit = (event, electionData) => {
+  const vote_of_voter_per_question = extractVoterSelectedAnswersFromFields(electionData);
+  alert("vote_of_voter_per_question: " + JSON.stringify(vote_of_voter_per_question));
+  event.preventDefault();
+};
+
+function VoteApp({uuid, lang, onVoteSubmit}){
+  const [electionData, setElectionData] = React.useState({});
+  const [electionLoaded, setElectionLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    fetch(`/elections/${uuid}/election.json`)
+      .then(response => response.json())
+      .then(
+        electionData => {
+          setElectionData(electionData);
+          setElectionLoaded(true);
+        }
+      );
+  }, []);
+
+  if(!electionLoaded){
+    return e(
+      "div",
+      {
+        className: "page"
+      },
+      e(
+        PageHeader,
+        {
+          title: "Loading...",
+          subTitle: null
+        }
+      ),
+      e(
+        "div",
+        {
+          className: "page-body"
+        },
+        e(
+          VoteBreadcrumb
+        ),
+        e(
+          "div",
+          {
+            style: {
+              textAlign: "center",
+              padding: "30px 0"
+            }
+          },
+          "Loading..."
+        )
+      ),
+      e(
+        PageFooter,
+        {
+          electionUuid: "Loading...",
+          electionFootprint: "Loading..."
+        }
+      )
+    )
+  }
+  else {
+    return e(
+      "div",
+      {
+        className: "page"
+      },
+      e(
+        PageHeader,
+        {
+          title: electionData.name,
+          subTitle: electionData.description
+        }
+      ),
+      e(
+        "div",
+        {
+          className: "page-body"
+        },
+        e(
+          VoteBreadcrumb
+        ),
+        e(
+          AllQuestionsWithPagination,
+          {
+            electionData: electionData,
+            onVoteSubmit: onVoteSubmit
+          }
+        ),
+      ),
+      e(
+        PageFooter,
+        {
+          electionUuid: electionData.uuid,
+          electionFootprint: "TODO" // TODO
+        }
+      )
+    );
+  }
 }
 
-function onI18nInitialized(){
-  renderBreadcrumb();
-  renderPageFooter();
-
-  fetch('./election.json')
-    .then(response => response.json())
-    .then(obj => renderElection(obj));
-}
+const afterI18nInitialized = (uuid, lang) => {
+  return function(){
+    const container = document.querySelector("#vote-app");
+    ReactDOM.render(
+      e(
+        VoteApp,
+        {
+          uuid: uuid,
+          lang: lang,
+          onVoteSubmit: onVoteSubmit
+        }
+      ),
+      container
+    );
+  }
+};
 
 function main() {
-  initializeUILanguageFromURLParameter(onI18nInitialized);
+  const hash_parameters = getHashParametersFromURL();
+  const lang = hash_parameters['lang'];
+  const uuid = hash_parameters['uuid'];
+  const container = document.querySelector("#vote-app");
+  container.innerHTML = "Loading...";
+  i18n_init(lang, afterI18nInitialized(uuid, lang));
 }
 
-function extractVoterSelectedAnswersFromFields(election_data){
+function extractVoterSelectedAnswersFromFields(electionData){
   let vote_of_voter_per_question = []; // array where each element correspond to voter's vote on question i. if type of question i is checkbox, answer to this question is an array of indexes of answers. if type of question i is radio, answer to this question is an array containing only one index of answer.
-  vote_of_voter_per_question = election_data.questions.map(function(question, question_index){
+  vote_of_voter_per_question = electionData.questions.map(function(question, question_index){
     const question_type = question.min === 1 && question.max === 1 ? "radio" : "checkbox";
     const els = question.answers.map(
       function(v, index){
@@ -60,54 +169,8 @@ function extractVoterSelectedAnswersFromFields(election_data){
   return vote_of_voter_per_question;
 }
 
-function addFormSubmitBehaviour(election_data){
-  /* v1: Use a form. We chose instead to not use a form, because it could increase possibilities to leak voter's choices.
-  const formEl = document.querySelector("form.vote-form");
-  const onSubmit = (event) => {
-    alert("coucou");
-    event.preventDefault();
-  };
-  formEl.addEventListener("submit", onSubmit);
-  */
 
-  // v2: Use Next button click event handler
-  const btnEl = document.querySelector(".vote-navigation__next-button-container");
-  const onSubmit = (event) => {
-    const vote_of_voter_per_question = extractVoterSelectedAnswersFromFields(election_data);
-    console.log("vote_of_voter_per_question:", vote_of_voter_per_question);
-    event.preventDefault();
-  };
-  btnEl.addEventListener('click', onSubmit);
-}
-
-function renderElection(election_data){
-  const container = document.querySelector("#classic-vote-candidates-list-container");
-  ReactDOM.render(
-    e(
-      AllQuestionsWithPagination,
-      {
-        election_data: election_data
-      }
-    ),
-    container
-  );
-  addFormSubmitBehaviour(election_data);
-
-  const pageHeaderContainer = document.querySelector("#page-header-container");
-  ReactDOM.render(
-    e(
-      PageHeader,
-      {
-        title: election_data.name,
-        subTitle: election_data.description
-      }
-    ),
-    pageHeaderContainer
-  );
-}
-
-
-
+/* We chose to not use a `<form>`, because it could increase possibilities to leak voter's choices. Instead, we use `<input type="checkbox">` or `<input type="radio">` fields outside of a `<form>`, and classic `<button>` for navigation between questions ("Previous" and "Next" labels). */
 class AllQuestionsWithPagination extends React.Component {
   constructor(props){
     super(props);
@@ -121,7 +184,8 @@ class AllQuestionsWithPagination extends React.Component {
   static get defaultProps() {
     return {
       current_question_index: 0,
-      election_data: null
+      electionData: null,
+      onVoteSubmit: null
     };
   }
 
@@ -133,19 +197,22 @@ class AllQuestionsWithPagination extends React.Component {
     }
   }
 
-  onClickNext(){
+  onClickNext(event){
     console.log("onClickNext");
-    if (this.state.current_question_index+1 < this.props.election_data.questions.length){
+    if (this.state.current_question_index+1 < this.props.electionData.questions.length){
       this.setState({current_question_index: this.state.current_question_index+1});
       window.scrollTo(0, 0); // Scroll to top of the page
     }
     else {
       // TODO: go to verification page
+      if (this.props.onVoteSubmit){
+        return this.props.onVoteSubmit(event, this.props.electionData);
+      }
     }
   }
 
   render(){
-    const renderedQuestions = this.props.election_data.questions.map(function(question, question_index){
+    const renderedQuestions = this.props.electionData.questions.map(function(question, question_index){
       return e(
         QuestionWithVotableAnswers,
         {
@@ -164,7 +231,7 @@ class AllQuestionsWithPagination extends React.Component {
       VoteNavigation,
       {
         question_index: this.state.current_question_index,
-        questions_length: this.props.election_data.questions.length,
+        questions_length: this.props.electionData.questions.length,
         onClickPreviousButton: this.onClickPrevious,
         onClickNextButton: this.onClickNext
       }
@@ -176,55 +243,6 @@ class AllQuestionsWithPagination extends React.Component {
       renderedPagination
     );
   }
-}
-
-function renderBreadcrumb(){
-  const breadcrumbContainer = document.querySelector("#breadcrumb-container");
-  ReactDOM.render(
-    e(
-      Breadcrumb,
-      {
-        steps: [
-          {
-            title: "Saisie du code de vote",
-            shortTitle: "Étape 1"
-          },
-          {
-            title: "Choix de vote",
-            shortTitle: "Étape 2",
-            isCurrentStep: true
-          },
-          {
-            title: "Récapitulatif",
-            shortTitle: "Étape 3"
-          },
-          {
-            title: "Authentification",
-            shortTitle: "Étape 4"
-          },
-          {
-            title: "Confirmation",
-            shortTitle: "Étape 5"
-          }
-        ]
-      }
-    ),
-    breadcrumbContainer
-  );
-}
-
-function renderPageFooter(){
-  const pageFooterContainer = document.querySelector("#page-footer-container");
-  ReactDOM.render(
-    e(
-      PageFooter,
-      {
-        electionUuid: "E7bP7XBxsumU3B",
-        electionFootprint: "cbhXGRgIAtXd0dbzfkGuO2juG5oxm4KgAmyFCW6BDpE"
-      }
-    ),
-    pageFooterContainer
-  );
 }
 
 main();

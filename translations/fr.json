@@ -15,5 +15,11 @@
   "questionXofY": "$t(questionX, {\"count\": {{current_question}} }) sur {{number_of_questions}}",
   "questionX": "Question {{count}}",
   "Next": "Suivant",
-  "Previous": "Précédent"
+  "Previous": "Précédent",
+  "Input credential": "Saisie du code de vote",
+  "Answer to questions": "Réponse aux questions",
+  "Review and encrypt": "Récapitulatif et chiffrement",
+  "Authenticate": "Authentification",
+  "Confirm": "Authentification",
+  "stepX": "Étape {{count}}"
 }

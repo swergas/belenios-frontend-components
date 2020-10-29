@@ -8,7 +8,7 @@
 
 .question-with-votable-answers__question-title {
   font-weight: 400;
-  margin-bottom: 3px;
+  margin: 8px 0 3px 0;
 }
 
 .question-with-votable-answers__question-description {

@@ -1,6 +1,8 @@
 import { NiceButton, BlueNiceButton } from "./NiceButton.mjs";
 
-function GenericNavigation({ labelInfo, labelPreviousButton, labelNextButton, disabledPreviousButton, disabledNextButton, onClickPreviousButton, onClickNextButton }){
+function GenericNavigation({ labelInfo=null, labelPreviousButton=null, labelNextButton=null, disabledPreviousButton=false, disabledNextButton=false, hiddenPreviousButton=false, hiddenNextButton=false, onClickPreviousButton=null, onClickNextButton=null }){
+  const stylePreviousButton = hiddenPreviousButton ? { display: "none" } : {};
+  const styleNextButton = hiddenNextButton ? { display: "none" } : {};
   return e(
     'div',
     {
@@ -29,7 +31,8 @@ function GenericNavigation({ labelInfo, labelPreviousButton, labelNextButton, di
             className: "vote-navigation__previous-button",
             label: labelPreviousButton,
             onClick: onClickPreviousButton,
-            disabled: disabledPreviousButton
+            disabled: disabledPreviousButton,
+            style: stylePreviousButton
           }
         )
       ),
@@ -44,7 +47,8 @@ function GenericNavigation({ labelInfo, labelPreviousButton, labelNextButton, di
             className: "vote-navigation__next-button",
             label: labelNextButton,
             onClick: onClickNextButton,
-            disabled: disabledNextButton
+            disabled: disabledNextButton,
+            style: styleNextButton
           }
         )
       )
@@ -52,7 +56,7 @@ function GenericNavigation({ labelInfo, labelPreviousButton, labelNextButton, di
   );
 }
 
-function TranslatableVoteNavigation({ question_index, questions_length, onClickPreviousButton, onClickNextButton, t }){
+function TranslatableVoteNavigation({ question_index=0, questions_length=1, onClickPreviousButton=null, onClickNextButton=null, t }){
   return GenericNavigation(
     {
       labelInfo: t("questionXofY", {current_question: question_index+1, number_of_questions: questions_length}),
@@ -61,7 +65,9 @@ function TranslatableVoteNavigation({ question_index, questions_length, onClickP
       onClickPreviousButton: question_index == 0 ? null : onClickPreviousButton,
       onClickNextButton: onClickNextButton,
       disabledPreviousButton: question_index == 0 ? true : false,
+      hiddenPreviousButton: question_index == 0 ? true : false,
       disabledNextButton: false,
+      hiddenNextButton: false
     }
   );
 }

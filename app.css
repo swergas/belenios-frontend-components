@@ -1,3 +1,4 @@
+/* UI Components try to respect [BEM](http://getbem.com/naming/) for the naming of their CSS classes */
 @import "components/PageHeader.css";
 @import "components/Breadcrumb.css";
 @import "components/CandidateWithCheckbox.css";
@@ -30,11 +31,4 @@ body {
 
 .page-body {
   background: white;
-}
-
-/* UI Components, with CSS class naming trying to respect BEM (http://getbem.com/naming/) */
-
-.classic-vote-candidates-list {
-  margin: 22px auto;
-  max-width: 550px;
 }
