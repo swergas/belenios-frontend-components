@@ -16,7 +16,7 @@ This repository contains several User Interface components meant to be used in [
 
 - And open your browser at the following URL:
 
-http://localhost:8000/#lang=fr
+http://localhost:8000/#lang=fr&uuid=E7bP7XBxsumU3B
 
 Supported languages (in hash parameter of the URL) are "en" and "fr".
 
