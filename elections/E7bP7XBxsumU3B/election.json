@@ -32,6 +32,16 @@
       "min": 1,
       "max": 1,
       "question": "Quelle est votre couleur préférée ?"
+    },
+    {
+      "answers": [
+        "Oui",
+        "Non"
+      ],
+      "blank": true,
+      "min": 1,
+      "max": 1,
+      "question": "Pouvez-vous me passer le sel s'il vous plaît ?"
     }
   ],
   "uuid": "E7bP7XBxsumU3B",

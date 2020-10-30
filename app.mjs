@@ -156,24 +156,29 @@ function main() {
 }
 
 function extractVoterSelectedAnswersFromFields(electionData){
+  const question_x_choice_y_pattern = (question_index, answer_index) => `question_${question_index}__choice_${answer_index}`;
   let vote_of_voter_per_question = []; // array where each element correspond to voter's vote on question i. if type of question i is checkbox, answer to this question is an array of indexes of answers. if type of question i is radio, answer to this question is an array containing only one index of answer.
   vote_of_voter_per_question = electionData.questions.map(function(question, question_index){
     const question_type = question.min === 1 && question.max === 1 ? "radio" : "checkbox";
     const els = question.answers.map(
       function(v, index){
-        return document.querySelector(`#question_${question_index}__choice_${index}`);
+        return document.querySelector("#" + question_x_choice_y_pattern(question_index, index));
       }
     );
     // attribute `checked`` works for questions of type `<input type="checkbox">` as well as `<input type="radio">`
-    const answers_to_question = els.map(el => el.checked).reduce(
+    let answers_to_question = els.map(el => el.checked).reduce(
       function(accumulator, value, index){
-        if (value === true){
-          accumulator.push(index);
-        }
+        const answer_value = value === true ? 1 : 0;
+        accumulator.push(answer_value);
         return accumulator;
       },
       []
     );
+    if ("blank" in question && question["blank"] === true){
+      const blank_el = document.querySelector("#" + question_x_choice_y_pattern(question_index, question.answers.length));
+      const blank_value = blank_el.checked ? 1 : 0;
+      answers_to_question = [blank_value, ...answers_to_question];
+    }
     if (question_type == "radio" && answers_to_question.length > 1){
       console.error("Several answers are checked but question type should be radio.");
     }

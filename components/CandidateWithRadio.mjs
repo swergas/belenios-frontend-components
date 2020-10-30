@@ -1,47 +1,41 @@
-class CandidateWithRadio extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { name, id, value, checked, candidateInfo } = this.props;
-    const checkedValue = checked ? "checked" : null;
-    return e(
-      'div',
+function CandidateWithRadio({ name, id, value, checked, candidateInfo, ...props }){
+  const checkedValue = checked ? "checked" : null;
+  return e(
+    'div',
+    {
+      className: "candidate-with-checkbox clickable",
+      ...props
+    },
+    e(
+      'input',
       {
-        className: "candidate-with-checkbox clickable"
+        type: 'radio',
+        name: name,
+        id: id,
+        value: value,
+        defaultChecked: checkedValue
+      }
+    ),
+    e(
+      'label',
+      {
+        htmlFor: id
       },
       e(
-        'input',
+        'span',
         {
-          type: 'radio',
-          name: name,
-          id: id,
-          value: value,
-          defaultChecked: checkedValue
+          'className': 'radio-button-appearance'
         }
       ),
       e(
-        'label',
+        'span',
         {
-          htmlFor: id
+          'className': 'candidate-info'
         },
-        e(
-          'span',
-          {
-            'className': 'radio-button-appearance'
-          }
-        ),
-        e(
-          'span',
-          {
-            'className': 'candidate-info'
-          },
-          candidateInfo
-        )
+        candidateInfo
       )
-    );
-  }
+    )
+  );
 }
 
 CandidateWithRadio.defaultProps = {

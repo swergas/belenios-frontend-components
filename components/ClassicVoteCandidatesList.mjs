@@ -31,11 +31,18 @@ class TranslatableClassicVoteCandidatesList extends React.Component {
         name: identifierPrefix,
         value: `choice_${instanceNumber}` // or maybe a candidate id provided in data input, or slugification of candidate name?
       };
+      let blankVoteProps = {};
+      if (blankVoteAllowed === true && instanceNumber === candidates.length){
+        blankVoteProps = {
+          style: {marginTop: "30px"}
+        };
+      }
       return e(
         candidate_constructor,
         {
           ...commonProps,
-          ...additionalProps
+          ...additionalProps,
+          ...blankVoteProps
         }
       );
     });

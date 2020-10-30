@@ -1,9 +1,10 @@
-function CandidateWithCheckbox({ name, id, checked, candidateInfo }){
+function CandidateWithCheckbox({ name, id, checked, candidateInfo, ...props }){
   const checkedValue = checked ? true : false;
   return e(
     'div',
     {
-      className: "candidate-with-checkbox clickable"
+      className: "candidate-with-checkbox clickable",
+      ...props
     },
     e(
       'input',
