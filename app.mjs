@@ -22,20 +22,33 @@ const onVoteSubmit = (event, electionData) => {
 
 function VoteApp({uuid, lang, onVoteSubmit}){
   const [electionData, setElectionData] = React.useState({});
-  const [electionLoaded, setElectionLoaded] = React.useState(false);
+  const [electionLoadingStatus, setElectionLoadingStatus] = React.useState(0); // 0: not yet loaded. 1: loaded with success. 2: loaded with error.
 
   React.useEffect(() => {
     fetch(`/elections/${uuid}/election.json`)
-      .then(response => response.json())
-      .then(
-        electionData => {
-          setElectionData(electionData);
-          setElectionLoaded(true);
+      .then(response => {
+        if(!response.ok){
+          return fetch(`/draft/preview/${uuid}/election.json`);
         }
-      );
+        return response;
+      })
+      .then(response => {
+        if(!response.ok){
+          setElectionLoadingStatus(2);
+        }
+        else {
+          response.json().then(electionData => {
+            setElectionData(electionData);
+            setElectionLoadingStatus(1);
+          });
+        }
+      });
   }, []);
 
-  if(!electionLoaded){
+  if(electionLoadingStatus != 1){
+    const titleMessage = electionLoadingStatus === 0 ? "Loading..." : "Error"
+    const loadingMessage = electionLoadingStatus === 0 ? titleMessage : "Error: Could not load this election. Maybe no election exists with this identifier.";
+    const footerMessage = electionLoadingStatus === 0 ? loadingMessage : "N/A";
     return e(
       "div",
       {
@@ -44,7 +57,7 @@ function VoteApp({uuid, lang, onVoteSubmit}){
       e(
         PageHeader,
         {
-          title: "Loading...",
+          title: titleMessage,
           subTitle: null
         }
       ),
@@ -64,14 +77,14 @@ function VoteApp({uuid, lang, onVoteSubmit}){
               padding: "30px 0"
             }
           },
-          "Loading..."
+          loadingMessage
         )
       ),
       e(
         PageFooter,
         {
-          electionUuid: "Loading...",
-          electionFootprint: "Loading..."
+          electionUuid: footerMessage,
+          electionFootprint: footerMessage
         }
       )
     )
