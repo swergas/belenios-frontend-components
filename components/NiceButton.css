@@ -24,6 +24,12 @@
   background-image: linear-gradient(to bottom, #25a5f0, #1097e6 66%, #0f8ad3);
 }
 
+.nice-button--white {
+  background: white;
+  color: black;
+  border-color: black;
+}
+
 .nice-button--default {
   background: #9d9d9d;
   color: white;

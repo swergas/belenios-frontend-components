@@ -10,6 +10,8 @@
 
 body {
   background: #E5E4E2;
+  font-family: 'Ubuntu', arial, serif;
+  font-weight: lighter;
 }
 
 @media screen and (max-width: 640px) {

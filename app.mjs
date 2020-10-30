@@ -1,6 +1,7 @@
 import i18n_init from "./i18n_init.mjs";
 import PageHeader from "./components/PageHeader.mjs";
 import { VoteBreadcrumb } from "./components/Breadcrumb.mjs";
+import InputCredentialSection from "./components/InputCredentialSection.mjs";
 import QuestionWithVotableAnswers from "./components/QuestionWithVotableAnswers.mjs";
 import VoteNavigation from "./components/VoteNavigation.mjs";
 import PageFooter from "./components/PageFooter.mjs";
@@ -20,7 +21,9 @@ const onVoteSubmit = (event, electionData) => {
   event.preventDefault();
 };
 
+
 function VoteApp({uuid, lang, onVoteSubmit}){
+  const [currentStep, setCurrentStep] = React.useState(1);
   const [electionData, setElectionData] = React.useState({});
   const [electionLoadingStatus, setElectionLoadingStatus] = React.useState(0); // 0: not yet loaded. 1: loaded with success. 2: loaded with error.
 
@@ -45,7 +48,7 @@ function VoteApp({uuid, lang, onVoteSubmit}){
       });
   }, []);
 
-  if(electionLoadingStatus != 1){
+  if(electionLoadingStatus === 0 || electionLoadingStatus === 2){
     const titleMessage = electionLoadingStatus === 0 ? "Loading..." : "Error"
     const loadingMessage = electionLoadingStatus === 0 ? titleMessage : "Error: Could not load this election. Maybe no election exists with this identifier.";
     const footerMessage = electionLoadingStatus === 0 ? loadingMessage : "N/A";
@@ -90,42 +93,85 @@ function VoteApp({uuid, lang, onVoteSubmit}){
     )
   }
   else {
-    return e(
-      "div",
-      {
-        className: "page"
-      },
-      e(
-        PageHeader,
-        {
-          title: electionData.name,
-          subTitle: electionData.description
-        }
-      ),
-      e(
+    if (currentStep === 1){
+      return e(
         "div",
         {
-          className: "page-body"
+          className: "page"
         },
         e(
-          VoteBreadcrumb
-        ),
-        e(
-          AllQuestionsWithPagination,
+          PageHeader,
           {
-            electionData: electionData,
-            onVoteSubmit: onVoteSubmit
+            title: electionData.name,
+            subTitle: electionData.description
           }
         ),
-      ),
-      e(
-        PageFooter,
-        {
-          electionUuid: electionData.uuid,
-          electionFootprint: "TODO" // TODO
-        }
+        e(
+          "div",
+          {
+            className: "page-body"
+          },
+          e(
+            VoteBreadcrumb
+          ),
+          e(
+            InputCredentialSection,
+            {
+              onSubmit: function(credential){
+                // TODO
+                alert("credential: " + credential);
+                setCurrentStep(2);
+              }
+            }
+          )
+        ),
+        e(
+          PageFooter,
+          {
+            electionUuid: electionData.uuid,
+            electionFootprint: "TODO" // TODO
+          }
+        )
       )
-    );
+    }
+    else if (currentStep === 2) {
+      return e(
+        "div",
+        {
+          className: "page"
+        },
+        e(
+          PageHeader,
+          {
+            title: electionData.name,
+            subTitle: electionData.description
+          }
+        ),
+        e(
+          "div",
+          {
+            className: "page-body"
+          },
+          e(
+            VoteBreadcrumb
+          ),
+          e(
+            AllQuestionsWithPagination,
+            {
+              electionData: electionData,
+              onVoteSubmit: onVoteSubmit
+            }
+          ),
+        ),
+        e(
+          PageFooter,
+          {
+            electionUuid: electionData.uuid,
+            electionFootprint: "TODO" // TODO
+          }
+        )
+      );
+    }
   }
 }
 

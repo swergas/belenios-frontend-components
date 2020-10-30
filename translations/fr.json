@@ -21,5 +21,8 @@
   "Review and encrypt": "Récapitulatif et chiffrement",
   "Authenticate": "Authentification",
   "Confirm": "Authentification",
-  "stepX": "Étape {{count}}"
+  "stepX": "Étape {{count}}",
+  "Input your credential": "Saisissez votre code de vote",
+  "here": "ici",
+  "Please enter your credential": "Veuillez saisir votre code de vote :"
 }
