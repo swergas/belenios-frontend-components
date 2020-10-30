@@ -70,7 +70,10 @@ function VoteApp({uuid, lang, onVoteSubmit}){
           className: "page-body"
         },
         e(
-          VoteBreadcrumb
+          VoteBreadcrumb,
+          {
+            currentStep: currentStep
+          }
         ),
         e(
           "div",
@@ -112,7 +115,10 @@ function VoteApp({uuid, lang, onVoteSubmit}){
             className: "page-body"
           },
           e(
-            VoteBreadcrumb
+            VoteBreadcrumb,
+            {
+              currentStep: currentStep
+            }
           ),
           e(
             InputCredentialSection,
@@ -153,7 +159,10 @@ function VoteApp({uuid, lang, onVoteSubmit}){
             className: "page-body"
           },
           e(
-            VoteBreadcrumb
+            VoteBreadcrumb,
+            {
+              currentStep: currentStep
+            }
           ),
           e(
             AllQuestionsWithPagination,

@@ -1,11 +1,14 @@
-import Breadcrumb from './Breadcrumb.mjs';
+import {Breadcrumb, TranslatableVoteBreadcrumb} from './Breadcrumb.mjs';
 
 export default {
   component: Breadcrumb,
   title: 'Breadcrumb',
 };
 
+const fakeTranslationFunction = s => s;
+
 const Template = args => e(Breadcrumb, {...args});
+const TemplateForTranslatableVoteBreadcrumb = args => e(TranslatableVoteBreadcrumb, {...args, t: fakeTranslationFunction});
 
 export const Default = Template.bind({});
 Default.args = {
@@ -47,4 +50,9 @@ VoteExample.args = {
       shortTitle: "Étape 5"
     }
   ]
+};
+
+export const RealVoteBreadcrumb = TemplateForTranslatableVoteBreadcrumb.bind({});
+RealVoteBreadcrumb.args = {
+  currentStep: 1
 };

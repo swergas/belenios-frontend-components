@@ -61,30 +61,31 @@ Breadcrumb.defaultProps = {
   ]
 };
 
-function TranslatableVoteBreadcrumb({ t, ...props }){
-  const voteBreadcrumbSteps = [
+function TranslatableVoteBreadcrumb({ t, currentStep=1, ...props }){
+  let voteBreadcrumbSteps = [
     {
-      title: t("Input credential"),
-      shortTitle: t("stepX", {count: 1})
+      title: t("Input credential")
     },
     {
-      title: t("Answer to questions"),
-      shortTitle: t("stepX", {count: 2}),
-      isCurrentStep: true
+      title: t("Answer to questions")
     },
     {
-      title: t("Review and encrypt"),
-      shortTitle: t("stepX", {count: 3})
+      title: t("Review and encrypt")
     },
     {
-      title: t("Authenticate"),
-      shortTitle: t("stepX", {count: 4})
+      title: t("Authenticate")
     },
     {
-      title: t("Confirm"),
-      shortTitle: t("stepX", {count: 5})
+      title: t("Confirm")
     }
   ];
+  voteBreadcrumbSteps = voteBreadcrumbSteps.map(function(el, index){
+    return {
+      ...el,
+      shortTitle: t("stepX", {count: index+1}),
+      isCurrentStep: currentStep === index+1 ? true : false
+    };
+  });
   return e(
     Breadcrumb,
     {
