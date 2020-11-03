@@ -15,6 +15,11 @@ function getHashParametersFromURL(){
   }, {});
 }
 
+// TODO: replace this mock function by usage of Belenios Javascript API (`src/lib/election.ml::of_string()`) when it is ready
+const beleniosComputeElectionFingerprint = (election_data) => {
+  return "election_fingerprint_aaa";
+};
+
 // TODO: replace this mock function by usage of Belenios Javascript API (`src/lib/credential.ml::check()`) when it is ready
 const beleniosCredentialCheck = (credential) => {
   return true;
@@ -23,7 +28,7 @@ const beleniosCredentialCheck = (credential) => {
 // TODO: replace this mock function by usage of Belenios Javascript API (`src/tool/tool_js_booth.ml::encryptBallot()`) when it is ready
 const beleniosEncryptBallot = (election_data, credential, voter_ballot_as_plaintext) => {
   console.log("beleniosEncryptBallot() election_data:", election_data, "credential:", credential, "voter_ballot_as_plaintext:", voter_ballot_as_plaintext);
-  return "aaa";
+  return "encrypted_ballot_aaa";
 };
 
 const onVoteSubmit = (event, electionData, credential) => {
@@ -38,6 +43,7 @@ const onVoteSubmit = (event, electionData, credential) => {
 function TranslatableVoteApp({uuid, lang, onVoteSubmit, t}){
   const [currentStep, setCurrentStep] = React.useState(1);
   const [electionData, setElectionData] = React.useState({});
+  const [electionFootprint, setElectionFootprint] = React.useState("");
   const [credential, setCredential] = React.useState(null);
   const [electionLoadingStatus, setElectionLoadingStatus] = React.useState(0); // 0: not yet loaded. 1: loaded with success. 2: loaded with error.
 
@@ -56,6 +62,7 @@ function TranslatableVoteApp({uuid, lang, onVoteSubmit, t}){
         else {
           response.json().then(electionData => {
             setElectionData(electionData);
+            setElectionFootprint(beleniosComputeElectionFingerprint(electionData));
             setElectionLoadingStatus(1);
           });
         }
@@ -156,7 +163,7 @@ function TranslatableVoteApp({uuid, lang, onVoteSubmit, t}){
           PageFooter,
           {
             electionUuid: electionData.uuid,
-            electionFootprint: "TODO" // TODO
+            electionFootprint: electionFootprint
           }
         )
       )
@@ -199,7 +206,7 @@ function TranslatableVoteApp({uuid, lang, onVoteSubmit, t}){
           PageFooter,
           {
             electionUuid: electionData.uuid,
-            electionFootprint: "TODO" // TODO
+            electionFootprint: electionFootprint
           }
         )
       );
