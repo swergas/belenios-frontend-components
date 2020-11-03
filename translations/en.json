@@ -24,5 +24,6 @@
   "stepX": "Step {{count}}",
   "Input your credential": "Input your credential",
   "here": "here",
-  "Please enter your credential": "Please enter your credential:"
+  "Please enter your credential": "Please enter your credential:",
+  "Invalid credential!": "Invalid credential!"
 }

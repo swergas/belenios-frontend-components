@@ -24,5 +24,6 @@
   "stepX": "Étape {{count}}",
   "Input your credential": "Saisissez votre code de vote",
   "here": "ici",
-  "Please enter your credential": "Veuillez saisir votre code de vote :"
+  "Please enter your credential": "Veuillez saisir votre code de vote :",
+  "Invalid credential!": "Code de vote invalide !"
 }

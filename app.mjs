@@ -15,16 +15,30 @@ function getHashParametersFromURL(){
   }, {});
 }
 
-const onVoteSubmit = (event, electionData) => {
+// TODO: replace this mock function by usage of Belenios Javascript API (`src/lib/credential.ml::check()`) when it is ready
+const beleniosCredentialCheck = (credential) => {
+  return true;
+};
+
+// TODO: replace this mock function by usage of Belenios Javascript API (`src/tool/tool_js_booth.ml::encryptBallot()`) when it is ready
+const beleniosEncryptBallot = (election_data, credential, voter_ballot_as_plaintext) => {
+  console.log("beleniosEncryptBallot() election_data:", election_data, "credential:", credential, "voter_ballot_as_plaintext:", voter_ballot_as_plaintext);
+  return "aaa";
+};
+
+const onVoteSubmit = (event, electionData, credential) => {
   const vote_of_voter_per_question = extractVoterSelectedAnswersFromFields(electionData);
+  // TODO: implement usage of Belenios Javascript API when it is ready
   alert("vote_of_voter_per_question: " + JSON.stringify(vote_of_voter_per_question));
+  const encrypted_ballot = beleniosEncryptBallot(electionData, credential, vote_of_voter_per_question);
+  alert("encrypted_ballot:" + encrypted_ballot);
   event.preventDefault();
 };
 
-
-function VoteApp({uuid, lang, onVoteSubmit}){
+function TranslatableVoteApp({uuid, lang, onVoteSubmit, t}){
   const [currentStep, setCurrentStep] = React.useState(1);
   const [electionData, setElectionData] = React.useState({});
+  const [credential, setCredential] = React.useState(null);
   const [electionLoadingStatus, setElectionLoadingStatus] = React.useState(0); // 0: not yet loaded. 1: loaded with success. 2: loaded with error.
 
   React.useEffect(() => {
@@ -124,9 +138,16 @@ function VoteApp({uuid, lang, onVoteSubmit}){
             InputCredentialSection,
             {
               onSubmit: function(credential){
-                // TODO
-                alert("credential: " + credential);
-                setCurrentStep(2);
+                // TODO: implement usage of Belenios Javascript API when it is ready
+                if(beleniosCredentialCheck(credential) === true){
+                  alert("credential: " + credential);
+                  setCredential(credential);
+                  setCurrentStep(2);
+                }
+                else {
+                  alert(t("Invalid credential!"));
+                }
+                return false;
               }
             }
           )
@@ -168,7 +189,9 @@ function VoteApp({uuid, lang, onVoteSubmit}){
             AllQuestionsWithPagination,
             {
               electionData: electionData,
-              onVoteSubmit: onVoteSubmit
+              onVoteSubmit: function(event, electionData){
+                return onVoteSubmit(event, electionData, credential);
+              }
             }
           ),
         ),
@@ -183,6 +206,8 @@ function VoteApp({uuid, lang, onVoteSubmit}){
     }
   }
 }
+
+const VoteApp = ReactI18next.withTranslation()(TranslatableVoteApp);
 
 const afterI18nInitialized = (uuid, lang) => {
   return function(){
@@ -234,7 +259,14 @@ function extractVoterSelectedAnswersFromFields(electionData){
       const blank_value = blank_el.checked ? 1 : 0;
       answers_to_question = [blank_value, ...answers_to_question];
     }
-    if (question_type == "radio" && answers_to_question.length > 1){
+    const number_of_answers_checked = answers_to_question.reduce(
+      function(accumulator, value, index){
+        const answer_value = value === 1 ? 1 : 0;
+        return accumulator + answer_value;
+      },
+      0
+    );
+    if (question_type == "radio" && number_of_answers_checked > 1){
       console.error("Several answers are checked but question type should be radio.");
     }
     return answers_to_question;
