@@ -14,10 +14,11 @@
       "answers": [
         "Blanquette de veau",
         "Lasagnes",
-        "Couscous"
+        "Couscous",
+        "Riz cantonais"
       ],
-      "min": 1,
-      "max": 2,
+      "min": 2,
+      "max": 3,
       "blank": true,
       "question": "Quels plats aimez-vous ?"
     },
