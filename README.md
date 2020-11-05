@@ -2,6 +2,8 @@
 
 This repository contains several User Interface components meant to be used in [Belenios](https://www.belenios.org/). They are implemented using Javascript ES6 and React (without JSX nor transpilation), and use i18next for internationalisation.
 
+[Here is a demo](https://swergas.github.io/belenios-frontend-components/index_without_npm.html#uuid=E7bP7XBxsumU3B) of a vote User Interface which uses these components.
+
 ## Browsing components using the index.html file
 
 - Install npm, optionnaly using nvm (if you choose to use nvm, don't forget to execute `nvm use current` before executing the following commands)
