@@ -8,7 +8,7 @@
   "Blank vote": "Blank vote",
   "Election server": "Election server",
   "electionUuid": "Election UUID: {{uuid}}",
-  "electionFootprint": "Election footprint: {{footprint}}",
+  "electionFingerprint": "Election fingerprint: {{fingerprint}}",
   "questionXofY": "$t(questionX, {\"count\": {{current_question}} }) of {{number_of_questions}}",
   "questionX": "Question {{count}}",
   "Next": "Next",
@@ -27,5 +27,9 @@
   "questionConstraintNoLessThanMin": "This question does not accept less than {{count}} answer checked.",
   "questionConstraintNoLessThanMin_plural": "This question does not accept less than {{count}} answers checked.",
   "questionConstraintNoMoreThanMax": "This question does not accept more than {{count}} answer checked.",
-  "questionConstraintNoMoreThanMax_plural": "This question does not accept more than {{count}} answers checked."
+  "questionConstraintNoMoreThanMax_plural": "This question does not accept more than {{count}} answers checked.",
+  "reviewBallotForQuestions": "Your ballot is not yet in the ballot box, and has the following content:",
+  "reviewBallotForQuestions_plural": "Your ballot is not yet in the ballot box, and contains the following answers to all {{count}} questions:",
+  "pleaseWaitDuringBallotEncryption": "Please wait while your ballot is being encrypted...",
+  "ballotHasBeenEncrypted": "Your ballot has been encrypted, but not cast yet!"
 }

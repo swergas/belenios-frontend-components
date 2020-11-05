@@ -1,6 +1,6 @@
 const e = React.createElement;
 
-function TranslatablePageFooter({electionUuid, electionFootprint, t}) {
+function TranslatablePageFooter({electionUuid, electionFingerprint, t}) {
   return e(
     "div",
     {
@@ -18,14 +18,14 @@ function TranslatablePageFooter({electionUuid, electionFootprint, t}) {
       {
         className: "page-footer__election-footprint-container"
       },
-      t("electionFootprint",{footprint: electionFootprint})
+      t("electionFingerprint",{fingerprint: electionFingerprint})
     )
   );
 }
 
 TranslatablePageFooter.defaultProps = {
   electionUuid: "aaa",
-  electionFootprint: "aaaaa"
+  electionFingerprint: "aaaaa"
 };
 
 const PageFooter = ReactI18next.withTranslation()(TranslatablePageFooter);

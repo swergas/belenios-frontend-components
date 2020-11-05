@@ -8,7 +8,7 @@
   "Blank vote": "Vote blanc",
   "Election server": "Serveur d'élections",
   "electionUuid": "UUID de l'élection : {{uuid}}",
-  "electionFootprint": "Empreinte de l'élection : {{footprint}}",
+  "electionFingerprint": "Empreinte de l'élection : {{fingerprint}}",
   "questionXofY": "$t(questionX, {\"count\": {{current_question}} }) sur {{number_of_questions}}",
   "questionX": "Question {{count}}",
   "Next": "Suivant",
@@ -17,7 +17,7 @@
   "Answer to questions": "Réponse aux questions",
   "Review and encrypt": "Récapitulatif et chiffrement",
   "Authenticate": "Authentification",
-  "Confirm": "Authentification",
+  "Confirm": "Confirmation",
   "stepX": "Étape {{count}}",
   "Input your credential": "Saisissez votre code de vote",
   "here": "ici",
@@ -27,5 +27,9 @@
   "questionConstraintNoLessThanMin": "Cette question n'accepte pas moins de {{count}} réponse cochée.",
   "questionConstraintNoLessThanMin_plural": "Cette question n'accepte pas moins de {{count}} réponses cochées.",
   "questionConstraintNoMoreThanMax": "Cette question n'accepte pas plus de {{count}} réponse cochée.",
-  "questionConstraintNoMoreThanMax_plural": "Cette question n'accepte pas plus de {{count}} réponses cochées."
+  "questionConstraintNoMoreThanMax_plural": "Cette question n'accepte pas plus de {{count}} réponses cochées.",
+  "reviewBallotForQuestions": "Votre bulletin de vote n'est pas encore placé dans l'urne, et son contenu est :",
+  "reviewBallotForQuestions_plural": "Votre bulletin de vote n'est pas encore placé dans l'urne, et son contenu pour les {{count}} questions est :",
+  "pleaseWaitDuringBallotEncryption": "Veuillez patienter, le chiffrement de votre bulletin de vote est en cours...",
+  "ballotHasBeenEncrypted": "Votre bulletin a été chiffré avec succès, mais n'a pas encore été déposé dans l'urne !"
 }

@@ -17,7 +17,7 @@ const TemplateWithTranslation = args => {
 export const DefaultResponsiveWithoutTranslation = TemplateWithoutTranslation.bind({});
 const defaultArgs = {
   electionUuid: "E7bP7XBxsumU3B",
-  electionFootprint: "cbhXGRgIAtXd0dbzfkGuO2juG5oxm4KgAmyFCW6BDpE"
+  electionFingerprint: "cbhXGRgIAtXd0dbzfkGuO2juG5oxm4KgAmyFCW6BDpE"
 };
 
 DefaultResponsiveWithoutTranslation.args = {
