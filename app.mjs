@@ -47,10 +47,10 @@ function TranslatableVoteApp({uuid, lang, onVoteSubmit, t}){
   const [electionLoadingStatus, setElectionLoadingStatus] = React.useState(0); // 0: not yet loaded. 1: loaded with success. 2: loaded with error.
 
   React.useEffect(() => {
-    fetch(`/elections/${uuid}/election.json`)
+    fetch(`./elections/${uuid}/election.json`)
       .then(response => {
         if(!response.ok){
-          return fetch(`/draft/preview/${uuid}/election.json`);
+          return fetch(`./draft/preview/${uuid}/election.json`);
         }
         return response;
       })
