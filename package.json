@@ -11,7 +11,8 @@
     "server": "python -m SimpleHTTPServer 8000",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006 -s ./",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "i18n-extract": "echo 'Extracting translated strings from Javascript files and updating frontend_translations/*.json...' && npx i18next-parser"
   },
   "repository": {
     "type": "git",
