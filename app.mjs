@@ -5,7 +5,7 @@ import AllQuestionsWithPagination from "./components/AllQuestionsWithPagination.
 import NoUuidSection from "./components/NoUuidSection.mjs";
 import InputCredentialSection from "./components/InputCredentialSection.mjs";
 import ReviewEncryptSection from "./components/ReviewEncryptSection.mjs";
-import PageFooter from "./components/PageFooter.mjs";
+import { PageFooter, EmptyPageFooter } from "./components/PageFooter.mjs";
 
 function getHashParametersFromURL(){
   const url_hash_parameters = window.location.hash.substr(1);
@@ -94,11 +94,7 @@ function GenericPage({title=null, subTitle=null, electionUuid="N/A", electionFin
       children
     ),
     e(
-      PageFooter,
-      {
-        electionUuid: electionUuid,
-        electionFingerprint: electionFingerprint
-      }
+      EmptyPageFooter
     )
   );
 }
@@ -161,7 +157,7 @@ function TranslatableVoteApp({uuid=null, lang="en", beleniosEncryptBallot=null, 
       // v2:
       loadElectionDataFromUuid(uuid);
     };
-    
+
     const titleMessage = t("Belenios booth");
     
     return e(

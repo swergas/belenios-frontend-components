@@ -30,5 +30,14 @@ TranslatablePageFooter.defaultProps = {
 
 const PageFooter = ReactI18next.withTranslation()(TranslatablePageFooter);
 
-export { PageFooter, TranslatablePageFooter };
+function EmptyPageFooter(props) {
+  return e(
+    "div",
+    {
+      className: "page-footer"
+    }
+  );
+}
+
+export { PageFooter, TranslatablePageFooter, EmptyPageFooter };
 export default PageFooter;
