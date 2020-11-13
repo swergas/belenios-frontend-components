@@ -1,4 +1,5 @@
 {
+  "Belenios booth": "Isoloir Belenios",
   "Invalid credential!": "Code de vote invalide !",
   "questionConstraintNoBlankAndOther": "Vous ne pouvez pas cocher à la fois le vote blanc et une autre réponse.",
   "questionConstraintNoLessThanMin": "Cette question n'accepte pas moins de {{count}} réponse cochée.",
@@ -16,6 +17,10 @@
   "Please enter your credential": "Veuillez saisir votre code de vote :",
   "Input your credential": "Saisissez votre code de vote",
   "here": "ici",
+  "Load an election on this server by giving its UUID": "Charger une élection stockée sur ce serveur en donnant son UUID",
+  "Load any election by giving its parameters": "Charger n'importe quelle élection en donnant ses paramètres",
+  "Load from UUID": "Charger à partir de l'UUID",
+  "Load from parameters": "Charger à partir des paramètres",
   "electionUuid": "UUID de l'élection : {{uuid}}",
   "electionFingerprint": "Empreinte de l'élection : {{fingerprint}}",
   "Election server": "Serveur d'élections",

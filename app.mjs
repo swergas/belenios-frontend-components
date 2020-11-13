@@ -2,6 +2,7 @@ import i18n_init from "./i18n_init.mjs";
 import PageHeader from "./components/PageHeader.mjs";
 import { VoteBreadcrumb } from "./components/Breadcrumb.mjs";
 import AllQuestionsWithPagination from "./components/AllQuestionsWithPagination.mjs";
+import NoUuidSection from "./components/NoUuidSection.mjs";
 import InputCredentialSection from "./components/InputCredentialSection.mjs";
 import ReviewEncryptSection from "./components/ReviewEncryptSection.mjs";
 import PageFooter from "./components/PageFooter.mjs";
@@ -72,7 +73,37 @@ function VotePage({ electionData, electionFingerprint, currentStep, children }){
   );
 }
 
-function TranslatableVoteApp({uuid, lang, beleniosEncryptBallot, t}){
+function GenericPage({title=null, subTitle=null, electionUuid="N/A", electionFingerprint="N/A", children}){
+  return e(
+    "div",
+    {
+      className: "page"
+    },
+    e(
+      PageHeader,
+      {
+        title: title,
+        subTitle: subTitle
+      }
+    ),
+    e(
+      "div",
+      {
+        className: "page-body"
+      },
+      children
+    ),
+    e(
+      PageFooter,
+      {
+        electionUuid: electionUuid,
+        electionFingerprint: electionFingerprint
+      }
+    )
+  );
+}
+
+function TranslatableVoteApp({uuid=null, lang="en", beleniosEncryptBallot=null, t}){
   const [currentStep, setCurrentStep] = React.useState(1);
   const [electionData, setElectionData] = React.useState({});
   const [electionFingerprint, setElectionFingerprint] = React.useState("");
@@ -81,7 +112,13 @@ function TranslatableVoteApp({uuid, lang, beleniosEncryptBallot, t}){
   const [uncryptedBallotBeforeReview, setUncryptedBallotBeforeReview] = React.useState(null);
   const [cryptedBallotBeforeReview, setCryptedBallotBeforeReview] = React.useState(null);
 
-  React.useEffect(() => {
+  const processElectionData = (inputElectionData) => {
+    setElectionData(inputElectionData);
+    setElectionFingerprint(beleniosComputeElectionFingerprint(inputElectionData));
+    setElectionLoadingStatus(1);
+  };
+
+  const loadElectionDataFromUuid = (uuid) => {
     fetch(`./elections/${uuid}/election.json`)
       .then(response => {
         if(!response.ok){
@@ -94,17 +131,58 @@ function TranslatableVoteApp({uuid, lang, beleniosEncryptBallot, t}){
           setElectionLoadingStatus(2);
         }
         else {
-          response.json().then(electionData => {
-            setElectionData(electionData);
-            setElectionFingerprint(beleniosComputeElectionFingerprint(electionData));
-            setElectionLoadingStatus(1);
-          });
+          response.json().then(processElectionData);
         }
       });
+  };
+  
+  React.useEffect(() => {
+    if(uuid){
+      loadElectionDataFromUuid(uuid);
+    }
   }, []);
 
-  if(electionLoadingStatus === 0 || electionLoadingStatus === 2){
-    const titleMessage = electionLoadingStatus === 0 ? "Loading..." : "Error"
+  if(!uuid && electionLoadingStatus == 0){
+    const onClickLoadFromParameters = (election_params) => {
+      let inputElectionData = null;
+      try {
+        inputElectionData = JSON.parse(election_params);
+      } catch (e) {
+        alert(`Election parameters seem to be invalid. Parsing error: ${e}`); 
+      }
+      processElectionData(inputElectionData);
+    };
+
+    const onClickLoadFromUuid = (uuid) => {
+      // v1:
+      // document.location.href = `#uuid=${uuid}`;
+      // document.location.reload();
+
+      // v2:
+      loadElectionDataFromUuid(uuid);
+    };
+    
+    const titleMessage = t("Belenios booth");
+    
+    return e(
+      GenericPage,
+      {
+        title: titleMessage,
+        subTitle: null,
+        electionUuid: "N/A",
+        electionFingerprint: "N/A"
+      },
+      e(
+        NoUuidSection,
+        {
+          onClickLoadFromUuid: onClickLoadFromUuid,
+          onClickLoadFromParameters: onClickLoadFromParameters
+        }
+      )
+    );
+  }
+  else if(electionLoadingStatus === 0 || electionLoadingStatus === 2){
+    const titleMessage = electionLoadingStatus === 0 ? "Loading..." : "Error";
     const loadingMessage = electionLoadingStatus === 0 ? titleMessage : "Error: Could not load this election. Maybe no election exists with this identifier.";
     const footerMessage = electionLoadingStatus === 0 ? loadingMessage : "N/A";
     const electionDataDuringLoading = {

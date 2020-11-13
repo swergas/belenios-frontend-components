@@ -1,4 +1,5 @@
 {
+  "Belenios booth": "Belenios booth",
   "Invalid credential!": "Invalid credential!",
   "questionConstraintNoBlankAndOther": "You cannot check blank vote and another answer.",
   "questionConstraintNoLessThanMin": "This question does not accept less than {{count}} answer checked.",
@@ -16,6 +17,10 @@
   "Please enter your credential": "Please enter your credential:",
   "Input your credential": "Input your credential",
   "here": "here",
+  "Load an election on this server by giving its UUID": "Load an election on this server by giving its UUID:",
+  "Load any election by giving its parameters": "Load any election by giving its parameters:",
+  "Load from UUID": "Load from UUID",
+  "Load from parameters": "Load from parameters",
   "electionUuid": "Election UUID: {{uuid}}",
   "electionFingerprint": "Election fingerprint: {{fingerprint}}",
   "Election server": "Election server",
