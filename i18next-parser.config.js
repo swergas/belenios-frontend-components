@@ -1,6 +1,6 @@
 module.exports = {
   keepRemoved: true,
-  output: 'frontend_translations/$LOCALE.json',
+  output: 'translations/$LOCALE.json',
   input: [
     'components/*.mjs',
     'app.mjs'

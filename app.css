@@ -1,13 +1,13 @@
 /* UI Components try to respect [BEM](http://getbem.com/naming/) for the naming of their CSS classes */
-@import "components/PageHeader.css";
-@import "components/Breadcrumb.css";
-@import "components/CandidateWithCheckbox.css";
-@import "components/ClassicVoteCandidatesList.css";
-@import "components/QuestionWithVotableAnswers.css";
-@import "components/PageFooter.css";
-@import "components/VoteNavigation.css";
-@import "components/NiceButton.css";
-@import "components/ClassicVoteReview.css";
+@import "./components/PageHeader.css";
+@import "./components/Breadcrumb.css";
+@import "./components/CandidateWithCheckbox.css";
+@import "./components/ClassicVoteCandidatesList.css";
+@import "./components/QuestionWithVotableAnswers.css";
+@import "./components/PageFooter.css";
+@import "./components/VoteNavigation.css";
+@import "./components/NiceButton.css";
+@import "./components/ClassicVoteReview.css";
 
 body {
   background: #E5E4E2;
